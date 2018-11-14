@@ -91,3 +91,22 @@ def triangles(n):
             yield(L)
     else:
         return 'done'
+
+def triangles2(n):
+    i=0
+    L=[1]
+    while i < n:
+        yield(L)
+        tmp=[1]
+        tmp.extend([L[j] + L[j+1] for j in range(i) if j+1 < len(L)])
+        tmp.append(1)
+        L = tmp
+        i += 1
+    else:
+        return 'done'
+
+
+
+
+
+
