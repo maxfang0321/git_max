@@ -74,8 +74,8 @@ def fib2(n):
     else:
         return 'done'
 
-
-def triangles(n):
+###  杨辉三角实现方法，学无止境
+def triangles1(n):
     i=0
     L=[1]
     while i < n:
@@ -105,8 +105,37 @@ def triangles2(n):
     else:
         return 'done'
 
+def triangles3(n):
+    i=0
+    L=[1]
+    while i < n:
+        yield(L)
+        L = [1] + [L[i] + L[i + 1] for i in range(len(L) - 1)] + [1]
+        i += 1
+    else:
+        return 'done'
+
+def triangles4():
+    L=[1]
+    while True:
+        yield(L)
+        L = [1] + [L[i] + L[i + 1] for i in range(len(L) - 1)] + [1]
 
 
+def triangles5():
+    N=[1]
+    while True:
+        yield(N)        #generator函数与普通函数的差别：在执行过程中，遇到yield就中断，下次又继续执行
+        N.append(0)
+        N=[N[i-1] + N[i] for i in range(len(N))]  #写法
+
+def triangles6():
+    a=[1]
+    while True:
+        yield a
+        a=[sum(i) for i in zip([0]+a,a+[0])]
+
+triangles = triangles6
 
 
 
