@@ -77,18 +77,14 @@ def fib2(n):
 
 def triangles(n):
     i=0
-    L=[]
+    L=[1]
     while i < n:
         if i == 0:
-            L=[1]
             i += 1
             yield(L)
         else:
-            j = 0
             tmp=[1]
-            while j < i-1:
-                tmp.append(L[j] + L[j+1])
-                j += 1
+            tmp.extend([L[j] + L[j+1] for j in range(i) if j+1 < len(L)])
             tmp.append(1)
             L = tmp
             i += 1
