@@ -138,4 +138,24 @@ def triangles6():
 triangles = triangles6
 
 
+def allNumber():
+    n = 0
+    while True:
+        yield(n)
+        n+=1
+
+
+def isLeapYear(n):
+    return (n%4==0 and n%100!=0) or n%400==0
+
+
+
+def lazySum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax+n
+        return ax
+    return sum
+
 
