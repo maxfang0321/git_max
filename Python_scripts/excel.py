@@ -1,33 +1,31 @@
 
-import sys
+#import sys
 import xlrd
 import numpy as np
-from datetime import date, datetime
+#from datetime import date, datetime
 
-excelFile = sys.argv[1]
+#excelFile = sys.argv[1]
 
 def read_excel(filePath):
-   content=[]
-   merged_content=[]
+   sheets_content=[]
    excelFile=xlrd.open_workbook(filePath)
    sheetNames = excelFile.sheet_names()
    for name in sheetNames:
+      data_content=[]
+      merged_content=[]
       sheet = excelFile.sheet_by_name(name)
       for row in range(sheet.nrows):
-         content.append(sheet.row_values(row))
+         data_content.append(sheet.row_values(row))
       merged_content = sheet.merged_cells
-   return content,merged_content
+      
+      multi_data = np.array(data_content)
+      for merge in merged_content:
+         (rs, re, cs, ce) = merge
+         multi_data[rs:re, cs:ce] = data_content[rs][cs]
+      
+      sheets_content.append(multi_data)
+   return sheets_content
 
-data,merged_struct = read_excel(excelFile)
 
-print(data)
-
-multi_data = np.array(data)
-
-print(merged_struct)
-
-for merge in merged_struct:
-   (rs, re, cs, ce) = merge
-   multi_data[rs:re, cs:ce] = multi_data[rs][cs]
-
-print(multi_data)
+if __name__ == '__main__':
+   print(read_excel(excelFile))
