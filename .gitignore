@@ -1,1 +1,6 @@
 *.pyc
+*.docx
+*.doc
+*.xlsx
+*.xls
+__pycache__
